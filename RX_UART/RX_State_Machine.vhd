@@ -33,9 +33,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity RX_State_Machine is
   Port (
-        RX : in std_logic;
+        Rx : in std_logic;
         Clk : in std_logic;
-        Baudrate : in std_logic;
+        Baudrate_out : in std_logic;
         Data_valid : out std_logic;
         Data : out std_logic_vector(7 downto 0)
    );
@@ -51,49 +51,49 @@ begin
     Data_valid <= '0' ;
     if rising_edge(Clk) then
         case State is
-            when idle => if Baudrate = '1' then
+            when idle => if Baudrate_out = '1' then
                     State <= start ;
                     end if;
-            when start => if Baudrate = '1' then 
+            when start => if Baudrate_out = '1' then 
                     State <= RX0 ;
                     end if;
-            when RX0 => if Baudrate = '1' then 
+            when RX0 => if Baudrate_out = '1' then 
                     State <= RX1 ;
-                    Data(0) <= RX ;
+                    Data(0) <= Rx ;
                     end if; 
-            when RX1 => if Baudrate = '1' then 
+            when RX1 => if Baudrate_out = '1' then 
                     State <= RX2 ;
-                    Data(1) <= RX ;
+                    Data(1) <= Rx ;
                     end if;
-            when RX2 => if Baudrate = '1' then 
+            when RX2 => if Baudrate_out = '1' then 
                     State <= RX3 ;
-                    Data(2) <= RX ;
+                    Data(2) <= Rx ;
                     end if;
-            when RX3 => if Baudrate = '1' then 
+            when RX3 => if Baudrate_out = '1' then 
                     State <= RX4 ;
-                    Data(3) <= RX ;
+                    Data(3) <= Rx ;
                     end if; 
-            when RX4 => if Baudrate = '1' then 
+            when RX4 => if Baudrate_out = '1' then 
                     State <= RX5 ;
-                    Data(4) <= RX ;
+                    Data(4) <= Rx ;
                     end if;
-            when RX5 => if Baudrate = '1' then 
+            when RX5 => if Baudrate_out = '1' then 
                     State <= RX6 ;
-                    Data(5) <= RX ;
+                    Data(5) <= Rx ;
                     end if;
-            when RX6 => if Baudrate = '1' then 
+            when RX6 => if Baudrate_out = '1' then 
                     State <= RX7 ;
-                    Data(6) <= RX ;
+                    Data(6) <= Rx ;
                     end if;
-            when RX7 => if Baudrate = '1' then 
+            when RX7 => if Baudrate_out = '1' then 
                     State <= stop ;
-                    Data(7) <= RX ;
+                    Data(7) <= Rx ;
                     end if;
-            when stop => if Baudrate = '1' then
+            when stop => if Baudrate_out = '1' then
                     State <= dv ;
                     Data_valid <= '1' ;
                     end if; 
-            when dv => if Baudrate = '1' then
+            when dv => if Baudrate_out = '1' then
                     State <= idle ; 
                     Data_valid <= '0' ;
                     end if;                          
