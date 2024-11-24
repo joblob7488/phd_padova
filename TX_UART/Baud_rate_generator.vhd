@@ -39,15 +39,15 @@ entity Baud_rate_generator is
 end Baud_rate_generator;
 
 architecture Behavioral of Baud_rate_generator is
-signal count : unsigned (2 downto 0) :=(others=>'0');
+signal count : unsigned (9 downto 0) :=(others=>'0');
 
 begin
 process(Clk)
 begin
     if rising_edge(Clk) then
-        if count = "111" then
+        if count = 868 then
             Baudrate <= '1';
-            count <= "000";
+            count <= "0000000000";
         else
             count <= count + 1;
             Baudrate <= '0';
@@ -55,3 +55,4 @@ begin
     end if;
 end process;
 end Behavioral;
+
