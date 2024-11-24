@@ -40,7 +40,7 @@ architecture Behavioral of RX_State_Machine_tb is
     signal Data_valid  : std_logic := '0';
     signal Data        : std_logic_vector(7 downto 0) := (others => '0');
     signal RX : std_logic := '0';
-    signal Baudrate    : std_logic := '0';
+    signal Baudrate_out    : std_logic := '0';
 
     -- Clock period definition
     constant clk_period : time := 10 ns;
@@ -53,7 +53,7 @@ begin
         Data_valid => Data_valid,
         Data => Data,
         RX => RX,
-        Baudrate => Baudrate
+        Baudrate_out => Baudrate_out
     );
 
     -- Clock generation process
@@ -67,14 +67,14 @@ begin
         end loop;
     end process;
 
-    -- Baudrate simulation process
+    -- Baudrate_out simulation process
     baudrate_process: process
     begin
         while true loop
-            Baudrate <= '0';
-            wait for 7 * clk_period;  -- Baudrate signal stays high for 8 clock cycles
-            Baudrate <= '1';
-            wait for clk_period;      -- Baudrate signal stays low for 1 clock cycle
+            Baudrate_out <= '0';
+            wait for 7 * clk_period;  -- Baudrate_out signal stays high for 8 clock cycles
+            Baudrate_out <= '1';
+            wait for clk_period;      -- Baudrate_out signal stays low for 1 clock cycle
         end loop;
     end process;
     
