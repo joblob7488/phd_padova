@@ -1,0 +1,30 @@
+import numpy as np
+from scipy.io.wavfile import read
+from matplotlib import pyplot as plt
+
+file_path = "Audio signal 1.wav"  # Replace with the path to your WAV file
+fs, audio_data = read(file_path)
+
+def find_noise_frequency(audio_data, fs):
+    audio_data_fft = np.fft.fft(audio_data)
+    magnitude = abs(audio_data_fft)
+    freqs = np.fft.fftfreq(len(audio_data), d=1/fs)
+    
+    return freqs[:len(freqs)//2], magnitude[:len(magnitude)//2] 
+
+def plot_spectrum(freqs_axis, data_magnitude, title):
+    magnitude_db = 20*np.log10(data_magnitude)
+    magnitude_normalized = magnitude_db - max(magnitude_db)
+    
+    plt.plot(freqs_axis, magnitude_normalized)
+    plt.axvline(freqs_axis[np.argmax(magnitude_normalized)], color='r', linestyle='--')
+    plt.xlim(0, 2000)
+    plt.title(title)
+    plt.legend()
+    plt.show()
+    
+    
+freqs_axis, audio_data_fft_magnitude = find_noise_frequency(audio_data, fs)
+plot_spectrum(freqs_axis, audio_data_fft_magnitude, "Spectrum")
+
+ 
