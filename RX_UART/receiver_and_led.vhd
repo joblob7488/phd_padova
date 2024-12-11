@@ -48,7 +48,7 @@ begin
         
         if led_cnt_start = '1' then
             led_cnt <= (others=>'0');
-            led <= '0';
+            led <= '1';
         elsif led_cnt < 2**26 then    
             led_cnt <= led_cnt + 1;
             led <= '1';

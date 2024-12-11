@@ -63,9 +63,8 @@ begin
                     state <= stop;
                     enable <= '0';
                     end if;                
-            when stop => if pulse = '1' then
+            when stop =>
                     state <= idle;
-                    end if;
         end case; 
    end if;
 end process;

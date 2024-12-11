@@ -54,7 +54,8 @@ begin
         port map (
             Clk => Clk,
             Rx => Rx,
-            pulse => pulse
+            pulse => pulse,
+            enable => enable
         );
     pgen : pulse_generator
         port map (

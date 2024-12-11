@@ -20,6 +20,7 @@ entity UART_Receiver is
 end UART_Receiver;
 
 architecture Behavioral of UART_Receiver is
+signal Baudrate_out : std_logic := '0';
 
 component Sampler_generator
     port(
@@ -38,7 +39,6 @@ component RX_State_Machine
     Data : out std_logic_vector(7 downto 0)
     );
 end component;
-signal Baudrate_out : std_logic := '0';
 
 begin
     sampler : Sampler_generator
