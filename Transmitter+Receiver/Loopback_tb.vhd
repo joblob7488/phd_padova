@@ -41,7 +41,7 @@ architecture Behavioral of Loopback_tb is
     signal clk         : std_logic := '0';
     signal TX          : std_logic;
     signal RX          : std_logic;
-    signal data_valid  : std_logic;
+    --signal data_valid  : std_logic;
     
     -- Clock period definition
     constant clk_period : time := 10 ns;
@@ -90,7 +90,9 @@ begin
         wait for baudrate_period; 
         RX <= '0';
         wait for baudrate_period; 
+        RX <= '1';
         wait for 20 * clk_period;
+        wait for 20 * baudrate_period;
   end process; 
   
 end Behavioral;
