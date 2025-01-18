@@ -66,10 +66,12 @@ begin
             when RX6 => if Baudrate_out = '1' then 
                     State <= RX7 ;
                     Data(7) <= Rx ;
+                    Data_valid <= '1' ;
                     end if;
             when RX7 => if Baudrate_out = '1' then 
                     State <= idle ;
-                    Data_valid <= '1' ;
+                    
+                    
                     end if;                   
        end case;
     end if; 

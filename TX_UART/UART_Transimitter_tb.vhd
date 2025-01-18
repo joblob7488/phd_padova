@@ -14,7 +14,6 @@ architecture Behavioral of UART_Transmitter_tb is
     signal Data_valid  : std_logic := '0';
     signal Data        : std_logic_vector(7 downto 0) := (others => '0');
     signal Tx          : std_logic;
-    signal Rst         : std_logic := '0';
 
     -- Clock period definition
     constant clk_period : time := 10 ns;
@@ -28,8 +27,7 @@ begin
         Busy => Busy,
         Data_valid => Data_valid,
         Data => Data,
-        Tx => Tx,
-        Rst => Rst
+        Tx => Tx
     );
 
     -- Clock generation process
@@ -46,10 +44,6 @@ begin
     -- Test process
     stim_proc: process
     begin
-        -- Reset the system
-        Rst <= '1';
-        wait for 2 * clk_period;
-        Rst <= '0';
         
         -- Wait for idle state
         wait for 20 * clk_period;
@@ -63,7 +57,6 @@ begin
         -- Wait for transmission to complete (80 clock periods for 1 byte transmission)
         wait for 80 * clk_period;
 
-       
         -- Finish simulation
         wait;
     end process;

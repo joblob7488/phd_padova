@@ -88,10 +88,10 @@ begin
             when RX7 => if Baudrate_out = '1' then 
                     State <= stop ;
                     Data(7) <= Rx ;
+                    Data_valid <= '1' ;
                     end if;
             when stop => if Baudrate_out = '1' then
                     State <= dv ;
-                    Data_valid <= '1' ;
                     end if; 
             when dv => if Baudrate_out = '1' then
                     State <= idle ; 
