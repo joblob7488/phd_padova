@@ -33,66 +33,51 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity UART_Transmitter is
 Port ( 
-    Clk : in std_logic;
-    Busy : out std_logic;
-    Btn2 : in std_logic; 
-    Data : in std_logic_vector(7 downto 0);
+    clk : in std_logic;
+    busy : out std_logic;
+    data_valid : in std_logic; 
+    data : in std_logic_vector(7 downto 0);
     TX : out std_logic
     );
 end UART_Transmitter;
 
 architecture Structural of UART_Transmitter is
 
+signal Baudrate : std_logic := '0';
+
 component TX_State_Machine
     Port (
-    Clk : in std_logic;
-    Busy : out std_logic;
-    Data_valid : in std_logic; 
-    Data : in std_logic_vector(7 downto 0);
+    clk : in std_logic;
+    busy : out std_logic;
+    data_valid : in std_logic; 
+    data : in std_logic_vector(7 downto 0);
     TX : out std_logic;
-    Baudrate : in std_logic
+    baudrate : in std_logic
     );
 end component;
 
 component Baud_rate_generator
     Port (
-    Clk : in std_logic;
-    Baudrate : out std_logic
+    clk : in std_logic;
+    baudrate : out std_logic
     );
 end component;
-
-component Edge_detector 
-    Port (
-    Clk : in std_logic ; 
-    Btn2 : in std_logic ;
-    Data_valid : out std_logic
-    );
-end component;
-
-signal Baudrate : std_logic := '0';
-signal Data_valid : std_logic ;
 
 begin
     FSM : TX_State_Machine 
         port map(
-            Clk => Clk,
-            Busy => Busy,
-            Data_valid => Data_valid, 
-            Data => Data,
+            clk => clk,
+            busy => Busy,
+            data_valid => data_valid, 
+            data => data,
             TX => TX,
-            Baudrate => Baudrate
+            baudrate => baudrate
         );
        
-     Counter : Baud_rate_generator
+   Counter : Baud_rate_generator
         port map(
-            Clk => Clk,
-            Baudrate => Baudrate
+            clk => clk,
+            baudrate => baudrate
         );
-     EdgeDetector : Edge_detector
-        port map(
-            Clk => Clk,
-            Btn2 => Btn2,
-            Data_valid => Data_valid
-            );
             
 end Structural;
